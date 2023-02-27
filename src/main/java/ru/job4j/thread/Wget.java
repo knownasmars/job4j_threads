@@ -33,7 +33,6 @@ public class Wget implements Runnable {
                     if ((rsl - end) < time) {
                         Thread.sleep(time - rsl);
                     }
-
                 } catch (InterruptedException e) {
                     Thread.currentThread().interrupt();
                 }
@@ -60,6 +59,5 @@ public class Wget implements Runnable {
         wget.join();
         long finish = System.currentTimeMillis() / 1000;
         System.out.println("программа работала секунд: " + (finish - start));
-
     }
 }
