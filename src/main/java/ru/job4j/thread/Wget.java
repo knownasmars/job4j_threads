@@ -44,7 +44,7 @@ public class Wget implements Runnable {
 
     private static void validate(String[] args) {
         if (args.length < 3) {
-            throw new IllegalArgumentException("íåêîððåêòíûå äàííûå");
+            throw new IllegalArgumentException("Ð½ÐµÐºÐ¾Ñ€Ñ€ÐµÐºÑ‚Ð½Ñ‹Ðµ Ð´Ð°Ð½Ð½Ñ‹Ðµ");
         }
     }
 
@@ -58,6 +58,6 @@ public class Wget implements Runnable {
         wget.start();
         wget.join();
         long finish = System.currentTimeMillis() / 1000;
-        System.out.println("ïðîãðàììà ðàáîòàëà ñåêóíä: " + (finish - start));
+        System.out.println("Ð¿Ñ€Ð¾Ð³Ñ€Ð°Ð¼Ð¼Ð° Ñ€Ð°Ð±Ð¾Ñ‚Ð°Ð»Ð° ÑÐµÐºÑƒÐ½Ð´: " + (finish - start));
     }
 }
