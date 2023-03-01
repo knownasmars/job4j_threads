@@ -56,6 +56,9 @@ public class AccountStorage {
         if (amount == 0) {
             throw new IllegalArgumentException("Сумма не может быть равна \"0\"");
         }
+        if (fromId <= 0 || toId <= 0) {
+            throw new IllegalArgumentException("Счет не может быть отрицательным!");
+        }
         boolean rsl = false;
         if (getById(fromId).isPresent() && getById(toId).isPresent()) {
             Account accFrom = accounts.get(fromId);
