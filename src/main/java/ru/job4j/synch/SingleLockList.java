@@ -1,11 +1,11 @@
 package ru.job4j.synch;
 
+import net.jcip.annotations.GuardedBy;
+import net.jcip.annotations.ThreadSafe;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-
-import net.jcip.annotations.GuardedBy;
-import net.jcip.annotations.ThreadSafe;
 
 @ThreadSafe
 public final class SingleLockList<T> implements Iterable<T> {
