@@ -10,6 +10,7 @@ import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.*;
 
 public class SingleLockListTest {
+
     @Test
     public void whenIt(){
         var init = new ArrayList<Integer>();
