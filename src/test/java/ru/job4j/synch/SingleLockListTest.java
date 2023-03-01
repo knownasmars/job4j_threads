@@ -1,13 +1,12 @@
 package ru.job4j.synch;
 
 import org.junit.Test;
+import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 import java.util.Set;
 import java.util.TreeSet;
-
-import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.*;
 
 public class SingleLockListTest {
     @Test
