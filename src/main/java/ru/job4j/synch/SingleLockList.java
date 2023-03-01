@@ -13,6 +13,7 @@ public final class SingleLockList<T> implements Iterable<T> {
     public SingleLockList(final List<T> list) {
         this.list = copy(list);
     }
+
     @GuardedBy("this")
     public synchronized void add(T value) {
         list.add(value);
