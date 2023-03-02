@@ -1,5 +1,6 @@
 package ru.job4j.cash;
 
+import javax.swing.text.html.Option;
 import java.util.HashMap;
 import java.util.Optional;
 
@@ -14,38 +15,19 @@ public class AccountStorage {
 
     public synchronized boolean add(Account account) {
         isNull(account);
-        boolean rsl = false;
-        HashMap<Integer, Account> shallowCopy = new HashMap<>(accounts);
-        accounts.put(account.id(), account);
-        if (shallowCopy.size() < accounts.size()
-                && accounts.get(account.id()).amount() == account.amount()) {
-            rsl = true;
-        }
-        return rsl;
+        return accounts.containsValue(accounts.putIfAbsent(account.id(), account));
     }
 
     public synchronized boolean update(Account account) {
         isNull(account);
-        boolean rsl = false;
-        HashMap<Integer, Account> shallowCopy = new HashMap<>(accounts);
-        accounts.put(account.id(), account);
-        if (accounts.get(account.id()) != shallowCopy.get(account.id())) {
-            rsl = true;
-        }
-        return rsl;
+        return accounts.replace(account.id(), accounts.get(account.id()), account);
     }
 
     public synchronized boolean delete(int id) {
         if (id == 0) {
             throw new IllegalArgumentException("id не может быть равен \"0\"");
         }
-        boolean rsl = false;
-        HashMap<Integer, Account> shallowCopy = new HashMap<>(accounts);
-        accounts.remove(id);
-        if (!accounts.containsKey(id)) {
-            rsl = true;
-        }
-        return rsl;
+        return accounts.remove(id, accounts.get(id));
     }
 
     public synchronized Optional<Account> getById(int id) {
@@ -60,9 +42,12 @@ public class AccountStorage {
             throw new IllegalArgumentException("Счет не может быть отрицательным!");
         }
         boolean rsl = false;
-        if (getById(fromId).isPresent() && getById(toId).isPresent()) {
-            Account accFrom = accounts.get(fromId);
-            Account accTo = accounts.get(toId);
+        boolean fromPresent = getById(fromId).isPresent();
+        boolean toPresent = getById(toId).isPresent();
+        Account accFrom = accounts.get(fromId);
+        Account accTo = accounts.get(toId);
+        if (fromPresent && toPresent
+                && accFrom.amount() >= amount) {
             int accFromTotalAmount = accFrom.amount() - amount;
             int accToTotalAmount = accTo.amount() + amount;
             accounts.put(fromId, new Account(fromId, accFromTotalAmount));
