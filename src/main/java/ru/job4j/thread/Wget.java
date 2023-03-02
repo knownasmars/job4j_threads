@@ -22,9 +22,7 @@ public class Wget implements Runnable {
              FileOutputStream fileOutputStream = new FileOutputStream(fileName)) {
             byte[] dataBuffer = new byte[1024];
             int bytesRead;
-            long start = System.currentTimeMillis() / 1000;
-            long end;
-            long rsl;
+            long start = System.currentTimeMillis();
             int downloadData = 0;
             while ((bytesRead = in.read(dataBuffer, 0, 1024)) != -1) {
                 fileOutputStream.write(dataBuffer, 0, bytesRead);
@@ -32,8 +30,8 @@ public class Wget implements Runnable {
                 downloadData += bytesRead;
                 try {
                     if (downloadData >= bytesRead) {
-                        end = System.currentTimeMillis() / 1000;
-                        rsl = end - start;
+                        long end = System.currentTimeMillis();
+                        long rsl = end - start;
                         if (rsl - end < 1) {
                             Thread.sleep(1000);
                         }
@@ -54,7 +52,7 @@ public class Wget implements Runnable {
     }
 
     public static void main(String[] args) throws InterruptedException {
-        long start = System.currentTimeMillis() / 1000;
+        long start = System.currentTimeMillis();
         validate(args);
         String url = args[0];
         String fileName = args[2];
@@ -62,7 +60,7 @@ public class Wget implements Runnable {
         Thread wget = new Thread(new Wget(url, speed, fileName));
         wget.start();
         wget.join();
-        long finish = System.currentTimeMillis() / 1000;
+        long finish = System.currentTimeMillis();
         System.out.println("программа работала секунд: " + (finish - start));
     }
 }
