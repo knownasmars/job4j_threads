@@ -1,6 +1,5 @@
 package ru.job4j.cash;
 
-import javax.swing.text.html.Option;
 import java.util.HashMap;
 import java.util.Optional;
 
@@ -15,7 +14,7 @@ public class AccountStorage {
 
     public synchronized boolean add(Account account) {
         isNull(account);
-        return accounts.containsValue(accounts.putIfAbsent(account.id(), account));
+        return accounts.putIfAbsent(account.id(), account) == null;
     }
 
     public synchronized boolean update(Account account) {
@@ -42,14 +41,16 @@ public class AccountStorage {
             throw new IllegalArgumentException("Счет не может быть отрицательным!");
         }
         boolean rsl = false;
-        boolean fromPresent = getById(fromId).isPresent();
-        boolean toPresent = getById(toId).isPresent();
-        Account accFrom = accounts.get(fromId);
-        Account accTo = accounts.get(toId);
+        Optional<Account> optFrom = getById(fromId);
+        Optional<Account> optTo = getById(toId);
+        boolean fromPresent = optFrom.isPresent();
+        boolean toPresent = optTo.isPresent();
+        Account accounFrom = optFrom.get();
+        Account accountTo = optTo.get();
         if (fromPresent && toPresent
-                && accFrom.amount() >= amount) {
-            int accFromTotalAmount = accFrom.amount() - amount;
-            int accToTotalAmount = accTo.amount() + amount;
+                && accounFrom.amount() >= amount) {
+            int accFromTotalAmount = accounFrom.amount() - amount;
+            int accToTotalAmount = accountTo.amount() + amount;
             accounts.put(fromId, new Account(fromId, accFromTotalAmount));
             accounts.put(toId, new Account(toId, accToTotalAmount));
             rsl = true;
