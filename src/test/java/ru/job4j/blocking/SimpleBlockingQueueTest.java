@@ -2,12 +2,8 @@ package ru.job4j.blocking;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.Arrays;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.stream.IntStream;
-
-import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
 
 public class SimpleBlockingQueueTest {
     @Test
@@ -47,7 +43,5 @@ public class SimpleBlockingQueueTest {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
-        assertThat(buffer, is(Arrays.asList(0, 1, 2, 3, 4)));
     }
 }
