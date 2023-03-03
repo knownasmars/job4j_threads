@@ -35,6 +35,8 @@ public class Wget implements Runnable {
                         if (rsl - end < 1) {
                             Thread.sleep(1000);
                         }
+                        start = System.currentTimeMillis();
+                        downloadData = 0;
                     }
                 } catch (InterruptedException e) {
                     Thread.currentThread().interrupt();
