@@ -18,43 +18,20 @@ public class SimpleBlockingQueue<T> {
         this.limit = limit;
     }
 
-    public Queue<T> getQueue() {
-        return queue;
-    }
-
-    public synchronized void offer(T value) {
-        System.out.println("Trying to put");
+    public synchronized void offer(T value) throws InterruptedException {
         while (queue.size() >= limit) {
-            try {
-                wait();
-                Thread.yield();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-        if (queue.size() == 0) {
-            System.out.println("Queue is empty, notify");
-            notifyAll();
+            wait();
         }
         queue.add(value);
-        System.out.println(value + " added");
+        notifyAll();
     }
 
-    public synchronized T poll() {
-        System.out.println("Trying to take out");
+    public synchronized T poll() throws InterruptedException {
         while (queue.size() == 0) {
-            System.out.println("Queue is empty, wait");
-            try {
-                wait();
-                Thread.yield();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            wait();
         }
-        if (queue.size() == limit) {
-            System.out.println("Queue is full, notify");
-            notifyAll();
-        }
-        return queue.remove();
+        T rsl = queue.remove();
+        notifyAll();
+        return rsl;
     }
 }

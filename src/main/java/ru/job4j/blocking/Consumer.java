@@ -14,6 +14,10 @@ public class Consumer implements Runnable {
     }
 
     private void consume() {
-        System.out.println("Consuming: " + simpleBlockingQueue.poll());
+        try {
+            System.out.println("Consuming: " + simpleBlockingQueue.poll());
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }
