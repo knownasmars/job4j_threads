@@ -7,7 +7,7 @@ import java.util.stream.IntStream;
 
 public class SimpleBlockingQueueTest {
     @Test
-    public void whenFetchAllThenGetIt() {
+    public void whenFetchAllThenGetIt() throws InterruptedException {
         final CopyOnWriteArrayList<Integer> buffer = new CopyOnWriteArrayList<>();
         final SimpleBlockingQueue<Integer> queue = new SimpleBlockingQueue<>(5);
         Thread producer = new Thread(
@@ -35,13 +35,9 @@ public class SimpleBlockingQueueTest {
                     }
                 }
         );
-        try {
-            consumer.start();
-            producer.join();
-            consumer.interrupt();
-            consumer.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        consumer.start();
+        producer.join();
+        consumer.interrupt();
+        consumer.join();
     }
 }
