@@ -8,8 +8,6 @@ import java.util.Queue;
 
 @ThreadSafe
 public class SimpleBlockingQueue<T> {
-    public volatile boolean empty = true;
-
     @GuardedBy("this")
     private final Queue<T> queue = new LinkedList<>();
 
@@ -20,7 +18,7 @@ public class SimpleBlockingQueue<T> {
     }
 
     public boolean isEmpty() {
-        return empty;
+        return queue.isEmpty();
     }
 
     public synchronized void offer(T value) throws InterruptedException {

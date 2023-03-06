@@ -5,6 +5,8 @@ import org.junit.jupiter.api.Test;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.stream.IntStream;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 public class SimpleBlockingQueueTest {
     @Test
     public void whenFetchAllThenGetIt() throws InterruptedException {
@@ -19,6 +21,7 @@ public class SimpleBlockingQueueTest {
                                 } catch (InterruptedException e) {
                                     e.printStackTrace();
                                 }
+                                assertThat(queue.isEmpty()).isFalse();
                             }
                     );
                 }
@@ -33,6 +36,7 @@ public class SimpleBlockingQueueTest {
                             Thread.currentThread().interrupt();
                         }
                     }
+                    assertThat(queue.isEmpty()).isTrue();
                 }
         );
         consumer.start();
