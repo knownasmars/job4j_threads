@@ -2,16 +2,13 @@ package ru.job4j;
 
 import net.jcip.annotations.ThreadSafe;
 
-import java.util.concurrent.atomic.AtomicReference;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @ThreadSafe
 public class CASCount {
-    private final AtomicReference<Integer> count = new AtomicReference<>();
+    private final AtomicInteger count = new AtomicInteger();
 
     public void increment() {
-        if (count.get() == null) {
-            throw new UnsupportedOperationException("Count is not impl.");
-        }
         int current;
         do {
             current = count.get();
@@ -19,9 +16,6 @@ public class CASCount {
     }
 
     public int get() {
-        if (count.get() == null) {
-            throw new UnsupportedOperationException("Count is not impl.");
-        }
         return count.get();
     }
 }
