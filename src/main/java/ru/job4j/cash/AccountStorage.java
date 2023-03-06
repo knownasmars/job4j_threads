@@ -43,11 +43,9 @@ public class AccountStorage {
         boolean rsl = false;
         Optional<Account> optFrom = getById(fromId);
         Optional<Account> optTo = getById(toId);
-        boolean fromPresent = optFrom.isPresent();
-        boolean toPresent = optTo.isPresent();
         Account accounFrom = optFrom.get();
         Account accountTo = optTo.get();
-        if (fromPresent && toPresent
+        if (optFrom.isPresent() && optTo.isPresent()
                 && accounFrom.amount() >= amount) {
             int accFromTotalAmount = accounFrom.amount() - amount;
             int accToTotalAmount = accountTo.amount() + amount;
