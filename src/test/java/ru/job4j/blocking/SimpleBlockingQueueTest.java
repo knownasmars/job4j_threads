@@ -2,6 +2,7 @@ package ru.job4j.blocking;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.stream.IntStream;
 
@@ -43,5 +44,6 @@ public class SimpleBlockingQueueTest {
         producer.join();
         consumer.interrupt();
         consumer.join();
+        assertThat(buffer).isEqualTo(Arrays.asList(0, 1, 2, 3, 4));
     }
 }
