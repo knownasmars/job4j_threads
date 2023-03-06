@@ -9,24 +9,23 @@ class CASCountTest {
     void whenIncrementTwoTimesAndGetThenEqualsTwo() throws InterruptedException {
         CASCount cs = new CASCount();
         Thread first = new Thread(() -> {
-            cs.increment();
-            int i = 0;
-            while (i++ < 100) {
+            for (int j = 0; j < 100; j++) {
                 cs.increment();
-                System.out.println(Thread.currentThread().getName() + " increased count: " + cs.get());
+                System.out.println(Thread.currentThread().getName()
+                        + " increased count: " + cs.get());
             }
         });
         Thread second = new Thread(() -> {
-            int i = 0;
-            while (i++ < 100) {
+            for (int j = 0; j < 100; j++) {
                 cs.increment();
-                System.out.println(Thread.currentThread().getName() + " increased count: " + cs.get());
+                System.out.println(Thread.currentThread().getName()
+                        + " increased count: " + cs.get());
             }
         });
         first.start();
         second.start();
         first.join();
         second.join();
-        assertThat(cs.get()).isEqualTo(201);
+        assertThat(cs.get()).isEqualTo(200);
     }
 }
