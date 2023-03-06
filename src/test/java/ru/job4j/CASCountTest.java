@@ -10,16 +10,23 @@ class CASCountTest {
         CASCount cs = new CASCount();
         Thread first = new Thread(() -> {
             cs.increment();
-            System.out.println(Thread.currentThread().getName() + " increased count: " + cs.get());
+            int i = 0;
+            while (i++ < 100) {
+                cs.increment();
+                System.out.println(Thread.currentThread().getName() + " increased count: " + cs.get());
+            }
         });
         Thread second = new Thread(() -> {
-            cs.increment();
-            System.out.println(Thread.currentThread().getName() + " increased count: " + cs.get());
+            int i = 0;
+            while (i++ < 100) {
+                cs.increment();
+                System.out.println(Thread.currentThread().getName() + " increased count: " + cs.get());
+            }
         });
         first.start();
         second.start();
         first.join();
         second.join();
-        assertThat(cs.get()).isEqualTo(2);
+        assertThat(cs.get()).isEqualTo(201);
     }
 }
