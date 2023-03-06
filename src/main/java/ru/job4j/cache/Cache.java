@@ -11,9 +11,8 @@ public class Cache {
     }
 
     public boolean update(Base model) {
-        Base stored = memory.get(model.getId());
         return memory.computeIfPresent(model.getId(), (id, base) -> {
-            if (stored.getVersion() != base.getVersion()) {
+            if (model.getVersion() != base.getVersion()) {
                 throw new OptimisticException("Versions are not equal");
             }
             return new Base(id, base.getVersion() + 1, model.getName());

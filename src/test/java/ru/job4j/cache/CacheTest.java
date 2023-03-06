@@ -3,6 +3,7 @@ package ru.job4j.cache;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class CacheTest {
     @Test
@@ -36,9 +37,9 @@ class CacheTest {
         Cache cache = new Cache();
         Base base = new Base(1, 0, "Base 1");
         cache.add(base);
-        Base base2 = new Base(1, 0, "Base 2");
+        Base base2 = new Base(1, 1, "Base 2");
         cache.add(base2);
-        assertThat(cache.update(base2)).isTrue();
+        assertThatThrownBy(() -> cache.update(base2)).isInstanceOf(OptimisticException.class);
     }
 
     @Test
