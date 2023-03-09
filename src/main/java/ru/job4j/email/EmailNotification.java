@@ -11,7 +11,7 @@ public class EmailNotification {
             @Override
             public void run() {
                 String subject = String.format(
-                        "Notification %s, to email %s",
+                        "Notification %s, to this email %s",
                         user.getUserName(),
                         user.getEmail()
                 );

@@ -46,9 +46,10 @@ public class User {
 
     @Override
     public String toString() {
-        return "User: [ "
-                + "name - " + userName + '\''
-                + ", email - " + email + '\''
+        return "User: [ " + "name - "
+                + userName + '\''
+                + ", email - "
+                + email + '\''
                 + ']';
     }
 }
