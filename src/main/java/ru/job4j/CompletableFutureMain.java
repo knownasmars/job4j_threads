@@ -57,7 +57,6 @@ public class CompletableFutureMain {
         iWork();
     }
 
-
     public static CompletableFuture<Void> goToTrash() {
         return CompletableFuture.runAsync(
                 () -> {
