@@ -16,9 +16,9 @@ public class IndexFinder<T> extends RecursiveTask<Integer> {
         this.el = el;
     }
 
-    public static <T> T finder (IndexFinder<T> index) {
+    public static <T> void finder(IndexFinder<T> index) {
         ForkJoinPool forkJoinPool = new ForkJoinPool();
-        return (T) forkJoinPool.invoke(index);
+        forkJoinPool.invoke(index);
     }
 
     private int linear() {
