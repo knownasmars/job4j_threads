@@ -16,9 +16,10 @@ public class IndexFinder<T> extends RecursiveTask<Integer> {
         this.el = el;
     }
 
-    public static <T> void finder(IndexFinder<T> index) {
+    public static <T> Integer finder(T[] array, T el) {
         ForkJoinPool forkJoinPool = new ForkJoinPool();
-        forkJoinPool.invoke(index);
+        return forkJoinPool.invoke(
+                new IndexFinder<>(array, 0, array.length - 1, el));
     }
 
     private int linear() {
@@ -36,11 +37,13 @@ public class IndexFinder<T> extends RecursiveTask<Integer> {
         if (to - from <= 10) {
             return linear();
         }
-        var mid = (from + to) / 2;
-        IndexFinder<T> leftFind = new IndexFinder<>(array, from, mid, el);
-        IndexFinder<T> rightFind = new IndexFinder<>(array, mid + 1, to, el);
-        finder(leftFind);
-        finder(rightFind);
+        int  mid = (from + to) / 2;
+        IndexFinder<T> leftFind =
+                new IndexFinder<>(array, from, mid, el);
+        IndexFinder<T> rightFind =
+                new IndexFinder<>(array, mid + 1, to, el);
+        leftFind.fork();
+        rightFind.fork();
         int leftElement = leftFind.join();
         int rightElement = rightFind.join();
         return Math.max(leftElement, rightElement);

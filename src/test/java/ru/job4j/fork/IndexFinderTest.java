@@ -12,9 +12,7 @@ class IndexFinderTest {
                 new Person("Dima", 23),
                 new Person("Valera", 15)
         };
-        IndexFinder<Person> iFinder =
-                new IndexFinder<>(small, 0, small.length - 1, new Person("Valera", 15));
-        assertThat(iFinder.compute()).isEqualTo(2);
+        assertThat(IndexFinder.finder(small, new Person("Valera", 15))).isEqualTo(2);
     }
 
     @Test
@@ -25,9 +23,7 @@ class IndexFinderTest {
                 new Person("Valera", 15)
         };
         Person valera = new Person("Vasyok", 15);
-        IndexFinder<Person> iFinder =
-                new IndexFinder<>(small, 0, small.length - 1, valera);
-        assertThat(iFinder.compute()).isEqualTo(-1);
+        assertThat(IndexFinder.finder(small, valera)).isEqualTo(-1);
     }
 
     @Test
@@ -46,9 +42,7 @@ class IndexFinderTest {
                 new Person("Katya", 33),
                 new Person("Nastya", 31)
         };
-        IndexFinder<Person> iFinder =
-                new IndexFinder<>(big, 0, big.length - 1, new Person("Andrey", 35));
-        assertThat(iFinder.compute()).isEqualTo(0);
+        assertThat(IndexFinder.finder(big, new Person("Andrey", 35))).isEqualTo(0);
     }
 
     @Test
@@ -67,9 +61,7 @@ class IndexFinderTest {
                 new Person("Katya", 33),
                 new Person("Nastya", 31)
         };
-        IndexFinder<Person> iFinder =
-                new IndexFinder<>(big, 0, big.length - 1,  new Person("Vasyok", 35));
-        assertThat(iFinder.compute()).isEqualTo(-1);
+        assertThat(IndexFinder.finder(big, new Person("Vasyok", 35))).isEqualTo(-1);
     }
 
     @Test
@@ -80,7 +72,6 @@ class IndexFinderTest {
                 "Petya", "Alex", "John",
                 "Sveta", "Katya", "Nastya"
         };
-        IndexFinder<String> stringFinder = new IndexFinder<>(array, 0, array.length - 1, "Alex");
-        assertThat(stringFinder.compute()).isEqualTo(7);
+        assertThat(IndexFinder.finder(array, "Alex")).isEqualTo(7);
     }
 }
