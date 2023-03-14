@@ -41,3 +41,5 @@
 - Docker
 - Kafka
 - Kubernetes
+
+Изучаем Git - вносим изменения.
