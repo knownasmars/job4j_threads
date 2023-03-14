@@ -41,3 +41,5 @@
 - Docker
 - Kafka
 - Kubernetes
+
+В курсе производилась работа с ветками git.
